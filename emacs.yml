@@ -1,0 +1,12 @@
+---
+- name: Emacs configuration
+  hosts: all
+  vars:
+  - name: Fake task
+    packages:
+    - yasnippet
+    - python-mode
+  tasks:
+  - template: src=templates/config.j2 dest=~/.emacs
+  - copy: src="customizations/{{ item }}.el" dest="~/.emacs.d/customizations/{{ item }}.el"
+    with_items: "{{ packages }}"
