@@ -4,8 +4,16 @@
   vars:
   - name: Fake task
     packages:
-    - yasnippet
+    - bar
+    - cider
+    - erlang
+    - magit
+    - org
+    - package
+    - paredit
     - python-mode
+    - tramp
+    - yasnippet
   tasks:
   - template: src=templates/config.j2 dest=~/.emacs
   - copy: src="customizations/{{ item }}.el" dest="~/.emacs.d/customizations/{{ item }}.el"
