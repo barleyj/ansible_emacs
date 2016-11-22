@@ -1,3 +1,4 @@
+(setq exec-path (append exec-path '("/Library/Frameworks/Python.framework/Versions/2.7/bin/")))
 (add-to-list 'load-path "/Users/jayson.barley/.emacs.d/lisp/python-mode")
 (setq py-install-directory "/Library/Frameworks/Python.framework/Versions/2.7")
 (require 'python-mode)
