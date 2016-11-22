@@ -1,3 +1,6 @@
+(server-start)
+(desktop-save-mode 1)
+(setq exec-path (append '("/usr/local/bin") exec-path))
 {% for package in packages %}
 (load "~/.emacs.d/customizations/{{ package }}.el")
 {% endfor %}
