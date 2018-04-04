@@ -2,19 +2,27 @@
 - name: Emacs configuration
   hosts: all
   vars:
-  - name: Fake task
+  - name: Configure emacs
     packages:
-    - bar
-    - cider
+    - desktop
+    - better-defaults
     - erlang
+    - flycheck
+    - git-gutter
     - magit
     - org
-    - package
     - paredit
     - python-mode
     - tramp
+    - workgroups2
     - yasnippet
   tasks:
+  - name: install emacs
+    package:
+      name: emacs
+      state: present
+  - name: Creates directory
+    file: path=~/.emacs.d/customizations state=directory
   - template: src=templates/config.j2 dest=~/.emacs
   - copy: src="customizations/{{ item }}.el" dest="~/.emacs.d/customizations/{{ item }}.el"
     with_items: "{{ packages }}"

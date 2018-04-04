@@ -1,6 +1,34 @@
-(server-start)
-(desktop-save-mode 1)
-(setq exec-path (append '("/usr/local/bin") exec-path))
+(if (display-graphic-p)
+    (progn
+      (load "server")
+      (unless (server-running-p) (server-start))))
+
+(require 'package)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("MELPA Stable" . "http://stable.melpa.org/packages/")))
+
+; activate all the packages (in particular autoloads)
+(package-initialize)
+(package-install 'exec-path-from-shell)
+(exec-path-from-shell-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; list the packages you want
+(setq package-list '({% for package in packages %}{{ package}} {% endfor %}))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
 {% for package in packages %}
 (load "~/.emacs.d/customizations/{{ package }}.el")
 {% endfor %}
+
+(electric-pair-mode 1)
+
