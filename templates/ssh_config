@@ -1,0 +1,22 @@
+Host *.delivery.puppetlabs.net
+     IdentityFile ~/.ssh/id_rsa-acceptance
+     User root
+     StrictHostKeyChecking no
+
+Host k8s_master
+     HostName 10.234.3.63
+     IdentityFile ~/.ssh/id_rsa
+     User centos
+     StrictHostKeyChecking no
+
+Host k8s_worker
+     HostName 10.234.3.56
+     IdentityFile ~/.ssh/id_rsa
+     User centos
+     StrictHostKeyChecking no
+
+Host puppet_master
+     HostName 10.234.3.64
+     IdentityFile ~/.ssh/id_rsa
+     User centos
+     StrictHostKeyChecking no

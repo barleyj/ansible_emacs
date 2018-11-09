@@ -1,0 +1,61 @@
+---
+- name: Tmux configuration
+  hosts: all
+  vars:
+    install_dir: /tmp/tmux_test
+  tasks:
+    - name: configure tmux
+      git:
+        repo: 'https://github.com/gpakosz/.tmux.git'
+        dest: "{{ install_dir }}/.tmux"
+    - name: install tpm
+      git:
+        repo: 'https://github.com/tmux-plugins/tpm'
+        dest: "{{ install_dir }}/.tmux/plugins/tpm"
+    - name: link config
+      file:
+        src: "{{ install_dir }}/.tmux/.tmux.conf"
+        dest: "{{ install_dir }}/.tmux.conf"
+        state: link
+    - name: copy local configuration
+      copy:
+        src: "{{ install_dir }}/.tmux/.tmux.conf.local"
+        dest: "{{ install_dir }}/.tmux.conf.local"
+    - name: add user customizations
+      lineinfile:
+        path: "{{ install_dir }}/.tmux.conf.local"
+        insertafter: '^# this is the place to override or undo settings'
+        line: "{{ item.line }}"
+      with_items:
+        - { line: '' }
+        - { line: 'bind C-P command-prompt -p "Open puppetlabs repo:" "new-session -s %1 -c ~/development/puppetlabs-%1 ; source-file ~/.tmux.ruby.conf"' }
+        - { line: '# Open a puppetlabs repo' }
+        - { line: '' }
+        - { line: 'bind L switch-client -l' }
+        - { line: '# Switch to last session' }
+        - { line: '' }
+        - { line: "bind-key -T copy-mode M-w send-keys -X copy-pipe 'reattach-to-user-namespace pbcopy'" }
+        - { line: "# Copy to clipboard" }
+    - name: increase history limit
+      lineinfile:
+        path: "{{ install_dir }}/.tmux.conf.local"
+        regexp: "^#set -g history-limit.*"
+        line: "set -g history-limit 100000"
+    - name: configure plugins
+      lineinfile:
+        path: "{{ install_dir }}/.tmux.conf.local"
+        insertafter: EOF
+        line: "{{ item.line }}"
+      with_items:
+        - { line: "# plugins" }
+        - { line: "set -g @tpm_plugins '           \"" }
+        - { line: "   tmux-plugins/tpm             \"" }
+        - { line: "   tmux-plugins/tmux-sensible   \"" }
+        - { line: "   tmux-plugins/tmux-resurrect  \"" }
+        - { line: "   tmux-plugins/tmux-continuum  \"" }
+        - { line: "'" }
+        - { line: "run '~/.tmux/plugins/tpm/tpm'" }
+        - { line: "set -g @resurrect-processes '\"emacs -nw\"'" }
+        - { line: "# enable continuum" }
+        - { line: "set -g @continuum-restore 'on'" }
+        - { line: "set -g @continuum-boot-options 'iterm,fullscreen'" }
