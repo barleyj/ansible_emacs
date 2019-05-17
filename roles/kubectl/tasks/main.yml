@@ -1,0 +1,4 @@
+- name: install kubernetes-cli
+  package:
+    name: kubernetes-cli
+    state: present

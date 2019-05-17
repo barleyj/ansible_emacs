@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  roles:
+    - aws
+    - aws-okta
+    - helm
+    - kubectl
+
+
+
+
