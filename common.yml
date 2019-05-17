@@ -1,5 +1,19 @@
 ---
 - hosts: localhost
+  vars:
+    packages:
+    - desktop
+    - better-defaults
+    - erlang
+    - flycheck
+    - git-gutter
+    - magit
+    - org
+    - paredit
+    - python-mode
+    - tramp
+    - workgroups2
+    - yasnippet
   roles:
     - zsh
     - tmux

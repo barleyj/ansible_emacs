@@ -1,3 +1,0 @@
-{% for package in tasks[packages] %}
-(require '{{ package }})
-{% endfor %}
