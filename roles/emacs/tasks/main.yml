@@ -1,0 +1,9 @@
+- name: install emacs
+  package:
+    name: emacs
+    state: present
+- name: Creates directory
+  file: path=~/.emacs.d/customizations state=directory
+- template: src=templates/config.j2 dest=~/.emacs
+- copy: src="roles/emacs/files/{{ item }}.el" dest="~/.emacs.d/customizations/{{ item }}.el"
+  with_items: "{{ packages }}"
