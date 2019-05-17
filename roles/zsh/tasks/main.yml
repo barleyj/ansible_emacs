@@ -1,0 +1,10 @@
+- name: install zsh
+  package:
+    name: zsh
+    state: present
+  notify:
+    - set zsh as default shell
+- name: install zsh-completions
+  package:
+    name: zsh-completions
+    state: present
