@@ -1,0 +1,13 @@
+- name: get hyperkit
+  git:
+    repo: https://github.com/moby/hyperkit.git
+    dest: "{{ ansible_env.HOME }}/development/hyperkit"
+- name: build hyperkit
+  shell: make
+  args:
+    chdir: "{{ ansible_env.HOME }}/development/hyperkit"
+    creates: build/hyperkit
+- name: copy to bin
+  copy:
+    src: "{{ ansible_env.HOME }}/development/hyperkit/build/hyperkit"
+    dest: /usr/local/bin
