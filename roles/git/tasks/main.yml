@@ -1,0 +1,59 @@
+---
+- name: Git Configuration
+  hosts: all
+  tasks:
+  - name: git user
+    git_config:
+      name: user.name
+      scope: system
+      value: Jayson Barley
+  - name: git email
+    git_config:
+      name: user.email
+      scope: system
+      value: {{ github_email }}
+  - name: lg
+    git_config:
+      name: alias.lg
+      scope: system
+      value: "log --pretty=format:'%C(yellow)%h%C(reset) %C(blue)%an%C(reset) %C(cyan)%cr - %ci%C(reset) %s %C(green)%d%C(reset)' --graph --date-order"
+  - name merge
+    git_config:
+     name: merge.tool
+     scope: system
+     value: ediff
+  - name mergtool
+    git_config:
+      name: 'mergetool "ediff".cmd'
+      scope: system
+      value: 'emacsclient --eval \"\
+(progn\
+  (defun ediff-write-merge-buffer ()\
+    (let ((file ediff-merge-store-file))\
+      (set-buffer ediff-buffer-C)\
+      (write-region (point-min) (point-max) file)\
+      (message \\\"Merge buffer saved in: %s\\\" file)\
+      (set-buffer-modified-p nil)\
+      (sit-for 1)))\
+  (ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\"\
+                                   \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"'
+  - name: diff
+    git_config:
+      name: diff.tool
+      scope: system
+      value: ediffclient
+  - name ediffclient
+    git_config:
+      name: 'difftool "ediffclient".cmd'
+      scope: system
+      value: 'emacsclient --eval \"(ediff-files \\\"$LOCAL\\\" \\\"$REMOTE\\\")\"'
+  - name: github user
+    git_config:
+      name: github.user
+      scope: system
+      value: {{ github_username }}
+  - name: github token
+    git_config:
+      name: github.token
+      scope: system
+      value: {{ github_token }}
