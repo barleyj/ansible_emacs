@@ -1,0 +1,7 @@
+- name: install rvm
+  shell: curl -sSL https://get.rvm.io | bash -s stable --ruby
+  args:
+    warn: no
+    creates: "{{ ansible_env.HOME }}/.rvm"
+  notify:
+    - install ruby 2.4

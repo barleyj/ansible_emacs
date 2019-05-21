@@ -1,0 +1,11 @@
+# TODO: only run if ruby isn't installed
+- name: install ruby 2.4
+  shell: rvm install ruby-2.4.0
+  notify:
+    - configure default ruby 2.4
+- name: configure default ruby 2.4
+  shell: rvm use --default 2.4.0
+  notify:
+    - source zshrc
+- name: source zshrc
+  shell: "source {{ ansible_env.HOME }}/.zshrc"
