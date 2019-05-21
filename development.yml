@@ -1,8 +1,9 @@
 ---
-- hosts: locahost
+- hosts: localhost
   roles:
     - docker
     - git
     - github
+    - rvm
     - overcommit
     - minikube

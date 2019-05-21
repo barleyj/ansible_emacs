@@ -5,7 +5,7 @@
     - aws-okta
     - helm
     - kubectl
-
-
+    - hyperkit
+    - minikube
 
 
