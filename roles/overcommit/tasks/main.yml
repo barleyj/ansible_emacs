@@ -1,0 +1,4 @@
+- name: install overcommit
+  gem:
+    name: overcommit
+    state: present
