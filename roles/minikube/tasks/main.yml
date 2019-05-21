@@ -5,4 +5,4 @@
 - name: set default memory
   shell: minikube config set memory 8192
 - name: set default cpus
-  shell: minikube config set cpu 4
+  shell: minikube config set cpus 4
