@@ -1,0 +1,3 @@
+- name: install helm
+  package:
+    name: helm

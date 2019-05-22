@@ -1,4 +1,6 @@
 ---
-- import_playbook: common.yml
-- import_playbook: devops.yml
-- import_playbook: development.yml
+- hosts: localhost
+  connection: local
+- import_playbook: common.yml hostlist=localhost
+- import_playbook: devops.yml hostlist=localhost
+- import_playbook: development.yml hostlist=localhost

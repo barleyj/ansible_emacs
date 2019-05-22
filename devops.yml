@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: "{{hostlist}}"
   roles:
     - aws
     - aws-okta
