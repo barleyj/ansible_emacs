@@ -1,0 +1,13 @@
+- name: generate github ssh key
+  openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/opengov_id_rsa"
+    state: present
+- name: Read SSH public key to authorize
+  shell: "cat {{ ansible_env.HOME }}/.ssh/opengov_id_rsa.pub"
+  register: ssh_pub_key
+- name: Authorize key with GitHub
+  local_action:
+    module: github_key
+    name: Access Key for Some Machine
+    token: '{{ github_token }}'
+    pubkey: '{{ ssh_pub_key.stdout }}'

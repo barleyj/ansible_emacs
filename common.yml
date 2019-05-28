@@ -16,6 +16,7 @@
     - yasnippet
   roles:
     - zsh
+    - oh-my-zsh
     - tmux
     - iterm
     - emacs

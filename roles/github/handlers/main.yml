@@ -1,0 +1,6 @@
+- name: authorize key with github
+  github_key:
+    name: opengov
+    state: present
+    token: '{{ github_token }}'
+    pubkey: '{{ github_key.public_key }}'

@@ -1,15 +1,15 @@
 ---
 - hosts: "{{hostlist}}"
-  # vars_prompt:
-  # - name: github_email
-  #   prompt: "What is your email address?"
-  #   private: no
-  # - name: github_username
-  #   prompt: "What is your github username?"
-  #   private: no
-  # - name: github_token
-  #   prompt: "What is your github token?"
-  #   private: yes
+  vars_prompt:
+  - name: github_email
+    prompt: "What is your email address?"
+    private: no
+  - name: github_username
+    prompt: "What is your github username?"
+    private: no
+  - name: github_token
+    prompt: "What is your github token?"
+    private: yes
   roles:
     - docker
     - git

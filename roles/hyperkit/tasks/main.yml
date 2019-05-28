@@ -1,13 +1,21 @@
-- name: get hyperkit
-  git:
-    repo: https://github.com/moby/hyperkit.git
-    dest: "{{ ansible_env.HOME }}/development/hyperkit"
-- name: build hyperkit
-  shell: make
-  args:
-    chdir: "{{ ansible_env.HOME }}/development/hyperkit"
-    creates: build/hyperkit
-- name: copy to bin
-  copy:
-    src: "{{ ansible_env.HOME }}/development/hyperkit/build/hyperkit"
-    dest: /usr/local/bin
+# - name: get hyperkit
+#   git:
+#     repo: https://github.com/moby/hyperkit.git
+#     dest: "{{ ansible_env.HOME }}/development/hyperkit"
+# - name: build hyperkit
+#   shell: make
+#   args:
+#     chdir: "{{ ansible_env.HOME }}/development/hyperkit"
+#     creates: build/hyperkit
+# - name: copy to bin
+#   copy:
+#     src: "{{ ansible_env.HOME }}/development/hyperkit/build/hyperkit"
+#     dest: /usr/local/bin/hyperkit
+- name: install hyperkit
+  package:
+    name: hyperkit
+    state: present
+- name: link hyperkit
+  shell: curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit && install -o root -g wheel -m 4755 docker-machine-driver-hyperkit /usr/local/bin/
+  become: true
+# minikube config set vm-driver hyperkit
