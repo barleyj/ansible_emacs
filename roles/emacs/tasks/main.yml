@@ -2,8 +2,13 @@
   package:
     name: emacs
     state: present
-- name: Creates directory
+- name: creates directory
   file: path=~/.emacs.d/customizations state=directory
 - template: src=templates/config.j2 dest=~/.emacs
 - copy: src="roles/emacs/files/{{ item }}.el" dest="~/.emacs.d/customizations/{{ item }}.el"
   with_items: "{{ packages }}"
+- name: install yasnippet templates
+  git:
+    repo: 'https://github.com/capitaomorte/yasnippet.git'
+    dest: "{{ ansible_env.HOME }}/.emacs.d/plugins"
+    recursive: true
