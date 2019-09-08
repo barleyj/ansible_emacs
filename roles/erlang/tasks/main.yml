@@ -1,0 +1,4 @@
+- name: install erlang
+  package:
+    name: erlang
+    state: present
