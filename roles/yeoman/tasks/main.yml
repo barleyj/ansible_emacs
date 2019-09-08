@@ -1,0 +1,5 @@
+- name: install yeoman
+  npm:
+    name: yo
+    state: present
+    globa: yes
